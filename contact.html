@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - 集成吊顶装修公司</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Microsoft+YaHei&display=swap" rel="stylesheet">
+    <meta name="description" content="集成吊顶装修公司联系方式，地址、电话、微信等联系信息">
+    <meta name="keywords" content="吊顶公司,联系我们,联系方式,地址电话">
+    <link rel="preload" href="styles.css" as="style">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>集成吊顶装修案例展示</h1>
+            <p>专业集成吊顶设计与施工 | 期待与您联系</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="cases.html">装修案例</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li><a href="contact.html" class="active">联系我们</a></li>
+                <li><a href="login.html">管理员</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="cases-container">
+            <div class="container">
+                <h2>联系我们</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>基本信息</h3>
+                        <p><strong>地址：</strong>某县某街道某号</p>
+                        <p><strong>营业时间：</strong>周一至周日 8:00-20:00</p>
+                        
+                        <h3>联系方式</h3>
+                        <p><strong>电话：</strong>13979432103</p>
+                        <p><strong>微信：</strong><span id="wechatNumber">zhang936464479</span> <button id="copyWechatBtn" class="copy-btn">复制</button></p>
+                        <p><strong>邮箱：</strong>936464479@qq.com</p>
+                        <p><strong>QQ：</strong>936464479</p>
+                        
+                        <div style="margin-top: 30px; text-align: center;">
+                            <a href="tel:13979432103" class="btn">立即致电</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <h3>微信咨询</h3>
+                        <p>欢迎通过微信与我们联系，获取更及时的回复：</p>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/eb98c8c1b91f48c89158a108c574604e.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1790229296&x-signature=pWczkRGqvhr28yTVKPiO8KMYW3w%3D&x-wf-file_name=cac7cdd82aae3221fe0ed8708cdf389a_origin%281%29.jpg" alt="微信二维码" style="max-width: 200px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy">
+                            <p style="margin-top: 10px; color: #7f8c8d;">扫描二维码添加微信</p>
+                            <button id="copyWechatBtn2" class="submit-btn" style="margin-top: 10px; background: linear-gradient(135deg, #27ae60 0%, #219653 100%);">复制微信号</button>
+                        </div>
+                        
+                        <h3 style="margin-top: 30px;">上门服务</h3>
+                        <p>我们提供免费上门测量服务，欢迎预约：</p>
+                        <ul>
+                            <li>📞 <strong>预约电话：</strong>13979432103</li>
+                            <li>🏠 <strong>服务区域：</strong>本地及周边地区</li>
+                            <li>⏱️ <strong>响应时间：</strong>24小时内回复</li>
+                        </ul>
+                        
+                        <div style="margin-top: 30px; text-align: center;">
+                            <a href="cases.html" class="btn" style="background: linear-gradient(135deg, #27ae60 0%, #219653 100%);">查看案例</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 集成吊顶装修公司. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">↑</div>
+
+    <script>
+        // 复制微信号功能
+        function copyWechatNumber() {
+            const wechatNumber = "13979432103";
+            
+            // 创建临时文本区域用于复制
+            const textArea = document.createElement('textarea');
+            textArea.value = wechatNumber;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    // 显示复制成功提示
+                    alert('微信号已复制到剪贴板：' + wechatNumber);
+                } else {
+                    alert('复制失败，请手动复制微信号：' + wechatNumber);
+                }
+            } catch (err) {
+                console.error('复制失败: ', err);
+                alert('复制失败，请手动复制微信号：' + wechatNumber);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        // 绑定复制按钮事件
+        document.getElementById('copyWechatBtn').addEventListener('click', copyWechatNumber);
+        document.getElementById('copyWechatBtn2').addEventListener('click', copyWechatNumber);
+
+        // 回到顶部功能
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

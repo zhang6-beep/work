@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员后台 - 集成吊顶装修公司</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Microsoft+YaHei&display=swap" rel="stylesheet">
+    <meta name="description" content="集成吊顶装修公司管理员后台系统">
+    <meta name="keywords" content="吊顶公司,管理员,后台管理">
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="cases-data.js" as="script">
+    <link rel="preload" href="script.js" as="script">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>集成吊顶装修案例展示</h1>
+            <p>专业集成吊顶设计与施工 | 管理员后台系统</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="cases.html">装修案例</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+                <li><a href="login.html" class="active">管理员</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="admin-container">
+            <div class="container">
+                <h2>管理员后台</h2>
+                
+                <div class="admin-header">
+                    <button id="logoutBtn" class="submit-btn" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">退出登录</button>
+                </div>
+                
+                <div class="admin-card">
+                    <h2>添加新案例</h2>
+                    <p>注意：添加案例需要直接修改代码文件</p>
+                    <form id="caseForm">
+                        <div class="form-group">
+                            <label for="title">案例标题：</label>
+                            <input type="text" id="title" name="title" required placeholder="请输入案例标题">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description">案例描述：</label>
+                            <textarea id="description" name="description" required placeholder="请输入案例详细描述"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="image">图片URL：</label>
+                            <input type="text" id="image" name="image" placeholder="https://example.com/image.jpg" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location">项目地点：</label>
+                            <input type="text" id="location" name="location" required placeholder="请输入项目地点">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="area">面积（平方米）：</label>
+                            <input type="number" id="area" name="area" min="1" required placeholder="请输入面积">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="date">完成日期：</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <button type="submit" class="submit-btn">生成案例代码</button>
+                        </div>
+                    </form>
+                    
+                    <div id="codeOutput" style="display: none;">
+                        <h3>案例代码：</h3>
+                        <pre id="codeSnippet"></pre>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <button id="copyCodeBtn" class="submit-btn" style="background: linear-gradient(135deg, #27ae60 0%, #219653 100%);">复制代码</button>
+                        </div>
+                        <p>请将以上代码添加到 cases-data.js 文件中的 decorationCases 数组中</p>
+                    </div>
+                </div>
+                
+                <div class="case-list">
+                    <h2>现有案例</h2>
+                    <div id="caseList">
+                        <!-- 案例列表将通过JavaScript动态加载 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 集成吊顶装修公司. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">↑</div>
+
+    <!-- 引入案例数据文件 -->
+    <script src="cases-data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // 添加错误处理和调试信息
+        try {
+            // 检查登录状态（使用sessionStorage）
+            const isLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
+            console.log('检查登录状态:', isLoggedIn);
+            
+            if (!isLoggedIn) {
+                console.log('未登录，跳转到登录页面');
+                window.location.href = 'login.html';
+            }
+        } catch (e) {
+            console.error('检查登录状态时出错:', e);
+            // 出错时默认跳转到登录页面
+            window.location.href = 'login.html';
+        }
+        
+        // 确保DOM加载完成后再执行
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // 退出登录功能
+                const logoutBtn = document.getElementById('logoutBtn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', function() {
+                        try {
+                            sessionStorage.removeItem('adminLoggedIn');
+                            console.log('已退出登录，跳转到登录页面');
+                            window.location.href = 'login.html';
+                        } catch (e) {
+                            console.error('退出登录时出错:', e);
+                        }
+                    });
+                }
+                
+                // 修改表单提交事件，生成代码而不是保存到本地存储
+                const caseForm = document.getElementById('caseForm');
+                if (caseForm) {
+                    caseForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        
+                        const form = e.target;
+                        const newCase = {
+                            id: Date.now(), // 使用时间戳作为唯一ID
+                            title: form.title.value,
+                            description: form.description.value,
+                            image: form.image.value,
+                            location: form.location.value,
+                            area: parseFloat(form.area.value),
+                            date: form.date.value
+                        };
+                        
+                        // 生成案例代码
+                        const codeSnippet = document.getElementById('codeSnippet');
+                        if (codeSnippet) {
+                            codeSnippet.textContent = JSON.stringify(newCase, null, 4);
+                            const codeOutput = document.getElementById('codeOutput');
+                            if (codeOutput) {
+                                codeOutput.style.display = 'block';
+                                
+                                // 滚动到代码输出区域
+                                codeOutput.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }
+                        
+                        form.reset();
+                    });
+                }
+                
+                // 复制代码功能
+                const copyCodeBtn = document.getElementById('copyCodeBtn');
+                if (copyCodeBtn) {
+                    copyCodeBtn.addEventListener('click', function() {
+                        const codeSnippet = document.getElementById('codeSnippet');
+                        if (codeSnippet) {
+                            const text = codeSnippet.textContent;
+                            
+                            // 创建临时文本区域用于复制
+                            const textArea = document.createElement('textarea');
+                            textArea.value = text;
+                            document.body.appendChild(textArea);
+                            textArea.select();
+                            
+                            try {
+                                const successful = document.execCommand('copy');
+                                if (successful) {
+                                    this.textContent = '复制成功！';
+                                    setTimeout(() => {
+                                        this.textContent = '复制代码';
+                                    }, 2000);
+                                }
+                            } catch (err) {
+                                console.error('复制失败: ', err);
+                                this.textContent = '复制失败';
+                                setTimeout(() => {
+                                    this.textContent = '复制代码';
+                                }, 2000);
+                            }
+                            
+                            document.body.removeChild(textArea);
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error('初始化管理员页面时出错:', e);
+            }
+        });
+
+        // 回到顶部功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('backToTop');
+            if (backToTopButton) {
+                window.addEventListener('scroll', () => {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                });
+                
+                backToTopButton.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
